@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Slot - {{ turf.name }}</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Optional: Include a CSS file -->
+  <style>
+    /* Reset some default styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: #f5f6fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .form-container h1 {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      color: #333;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    input[type="time"] {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    input[type="time"]:focus {
+      border-color: #3498db;
+      outline: none;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background-color: #3498db;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      margin-bottom: 10px;
+    }
+
+    .btn:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+    }
+
+    .btn.cancel {
+      background-color: #e74c3c;
+    }
+
+    .btn.cancel:hover {
+      background-color: #c0392b;
+    }
+
+    @media (max-width: 480px) {
+      .form-container {
+        padding: 25px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Add Slot for {{ turf.name }}</h1>
+
+    <form method="POST">
+      {% csrf_token %}
+      
+      <label for="start_time">Start Time</label>
+      <input type="time" id="start_time" name="start_time" required>
+
+      <label for="end_time">End Time</label>
+      <input type="time" id="end_time" name="end_time" required>
+
+      <button type="submit" class="btn">Add Slot</button>
+      <a href="{% url 'manage_turf' %}" class="btn cancel">Cancel</a>
+    </form>
+  </div>
+</body>
+</html>

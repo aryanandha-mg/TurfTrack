@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Turf | TurfTrack</title>
+  <link rel="stylesheet" href="{% static 'css/owner-dashboard.css' %}">
+  <style>
+    .form-container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .form-container h1 { text-align: center; margin-bottom: 20px; color: #0a6847; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+    .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+    .form-actions { display: flex; justify-content: space-between; margin-top: 20px; }
+    .btn { background: #0a6847; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; text-decoration: none; text-align: center; }
+    .btn:hover { background: #0d8566; }
+    .btn.cancel { background: #888; }
+  </style>
+</head>
+<body style="background-image: url('https://plus.unsplash.com/premium_photo-1665673313714-bf4d692020e6?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+  <div class="form-container">
+    <h1>Add New Turf</h1>
+
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <li style="color: green; font-weight: bold;">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <div class="form-group">
+          <label for="turfName">Turf Name</label>
+          <input type="text" id="turfName" name="name" placeholder="Enter turf name" required>
+      </div>
+
+      <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" id="location" name="location" placeholder="Enter location" required>
+      </div>
+
+      <div class="form-group">
+          <label for="price">Price Per Hour (₹)</label>
+          <input type="number" id="price" name="price_per_hour" placeholder="Enter price per hour" required>
+      </div>
+
+      <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" name="description" placeholder="Enter turf description" rows="4" required></textarea>
+      </div>
+
+      <div class="form-group">
+          <label for="image">Turf Image</label>
+          <input type="file" id="image" name="image" accept="image/*">
+      </div>
+
+      <div class="form-actions">
+          <button type="submit" class="btn">Save Turf</button>
+          <a href="{% url 'owner_dashboard' %}" class="btn cancel">Cancel</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

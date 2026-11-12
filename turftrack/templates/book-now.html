@@ -1,0 +1,220 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TurfTrack | Book Court</title>
+  <link rel="stylesheet" href="{% static 'css/book-now.css' %}">
+
+  
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header">
+      <nav>
+        <div class="head-section">
+          <div class="head-logo">
+            <h2>TurfTrack</h2>
+          </div>
+          <div class="head-left">
+            <a class="head-home" href="{% url 'home' %}">Home</a>
+            <a class="head-about" href="{% url 'about' %}">About Us</a>
+            <a class="head-index" href="{% url 'index' %}">Index</a>
+            <a class="head-gallery" href="{% url 'review' %}">Review</a>
+            <a class="head-history" href="{% url 'booking_history' %}">Booking History</a>
+            <a class="head-offer" href="{% url 'job' %}">Jobs</a>
+            <a class="head-contact" href="{% url 'contact' %}">Contact Us</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Court Info -->
+  <section class="court-info">
+    <h2>{{ turf.name }}</h2>
+    <p class="month">{{ selected_day|date:"F Y" }}</p>
+
+    <div class="date-nav">
+      <button class="prev" onclick="scrollDates(-100)">&lt;</button>
+      <div class="dates-container">
+        <div class="dates">
+         {% for day in week_days %}
+            {% with day_date=day.date %}
+         <span 
+             class="date-item {% if day_date == selected_day %}active{% endif %}" 
+              data-date="{{ day_date|date:'Y-m-d' }}">
+            {{ day_date|date:"d M" }}
+         </span>
+        {% endwith %}
+          {% endfor %}
+        </div>
+      </div>
+      <button class="next" onclick="scrollDates(100)">&gt;</button>
+    </div>
+
+    <!-- Hidden input to store the selected date -->
+    <input type="hidden" name="booking_date" id="selected_date" value="{{ selected_day }}">
+  </section>
+
+  <!-- Slots Section -->
+ <section class="slots">
+  <center><h3>Available Slots</h3></center>
+
+  <form id="slot-selection-form">
+    {% csrf_token %}
+    <div class="slot-list">
+      {% for slot in available_slots %}
+  <div class="slot" data-slot-id="{{ slot.id }}">
+    <span>{{ slot.start_time }} - {{ slot.end_time }}</span>
+    <span>₹{{ turf.price_per_hour }}</span>
+
+    {% if slot.id in booked_slots %}
+      <!-- Slot already booked -->
+      <button type="button" class="booked-btn" disabled>Booked</button>
+    {% else %}
+      <!-- Hidden checkbox for backend -->
+      <input type="checkbox" name="slot_time" value="{{ slot.id }}" id="slot_{{ slot.id }}" style="display: none;">
+      <!-- Toggle button -->
+      <button type="button" class="add-btn" data-slot-id="{{ slot.id }}" data-price="{{ turf.price_per_hour }}">+</button>
+    {% endif %}
+  </div>
+{% empty %}
+  <p>No available slots for this day.</p>
+{% endfor %}   
+</div>
+  </form>
+
+  <!-- Total Amount -->
+  <div style="margin-top: 15px; text-align:center;">
+    <label>Total Amount:</label>
+    <input type="text" id="total_amount" readonly>
+  </div>
+</section>
+
+
+  <!-- Final Proceed Form -->
+  <form id="final-proceed-form" method="POST" action="{% url 'book_now' turf.id %}">
+  {% csrf_token %}
+  <input type="hidden" name="booking_date" id="final-booking-date">
+  <input type="hidden" name="slot_time" id="final-selected-slot">
+  <input type="hidden" name="total_amount" id="final-selected-amount">
+
+  <div class="proceed-container">
+    <button type="submit" class="proceed" id="proceed-btn">PROCEED</button>
+  </div>
+</form>
+
+  <!-- JavaScript -->
+   <script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const slotElementsContainer = document.querySelector(".slot-list");
+  const totalAmountDisplay = document.getElementById("total_amount");
+  const finalForm = document.getElementById("final-proceed-form");
+  const proceedBtn = document.getElementById("proceed-btn");
+  const finalDateInput = document.getElementById("final-booking-date");
+  const finalAmountInput = document.getElementById("final-selected-amount");
+
+  let selectedSlots = [];
+  let totalAmount = 0;
+  const pricePerHour = parseFloat("{{ turf.price_per_hour }}");
+
+  // --- Slot toggle ---
+  function attachSlotListeners() {
+    const slotElements = document.querySelectorAll(".slot");
+    slotElements.forEach(slot => {
+      const checkbox = slot.querySelector("input[type='checkbox']");
+      const addBtn = slot.querySelector(".add-btn");
+
+      if (addBtn && !checkbox.disabled) {
+        addBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const slotId = checkbox.value;
+
+          if (!checkbox.checked) {
+            checkbox.checked = true;
+            addBtn.classList.add("selected");
+            addBtn.textContent = "×";
+            selectedSlots.push(slotId);
+            totalAmount += pricePerHour;
+          } else {
+            checkbox.checked = false;
+            addBtn.classList.remove("selected");
+            addBtn.textContent = "+";
+            selectedSlots = selectedSlots.filter(id => id !== slotId);
+            totalAmount -= pricePerHour;
+          }
+
+          totalAmountDisplay.value = totalAmount.toFixed(2);
+        });
+      }
+    });
+  }
+  attachSlotListeners();
+
+  // --- Proceed button ---
+  proceedBtn.addEventListener("click", (e) => {
+    if (selectedSlots.length === 0) {
+        e.preventDefault();
+        alert("Please select at least one slot before proceeding.");
+        return;
+    }
+
+    const activeDateElement = document.querySelector(".date-item.active");
+    if (!activeDateElement) {
+        e.preventDefault();
+        alert("Please select a booking date.");
+        return;
+    }
+
+    finalDateInput.value = activeDateElement.dataset.date;
+    finalAmountInput.value = totalAmount.toFixed(2);
+
+    finalForm.querySelectorAll("input[name='slot_time']").forEach(input => input.remove());
+    selectedSlots.forEach(slotId => {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = "slot_time";
+      input.value = slotId;
+      finalForm.appendChild(input);
+    });
+
+    finalForm.submit();
+  });
+
+  // --- Scroll Dates ---
+  window.scrollDates = (amount) => {
+    const datesDiv = document.querySelector(".dates");
+    datesDiv.scrollBy({ left: amount, behavior: "smooth" });
+  };
+
+  // --- Date selection using delegation ---
+  const datesContainer = document.querySelector(".dates");
+  datesContainer.addEventListener("click", (e) => {
+    const item = e.target.closest(".date-item");
+    if (!item) return;
+
+    // Remove active from all and set clicked
+    datesContainer.querySelectorAll(".date-item").forEach(d => d.classList.remove("active"));
+    item.classList.add("active");
+
+    const selectedDate = item.dataset.date;
+    document.getElementById("selected_date").value = selectedDate;
+
+    // Reload page with new date
+    const url = new URL(window.location.href);
+    url.searchParams.set("booking_date", selectedDate);
+    window.location.href = url.toString();
+  });
+});
+</script>
+
+
+
+  <script src="{% static 'js/book-now.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TurfTrack | Payment</title>
+  <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header">
+      <nav>
+        <div class="head-section">
+          <div class="head-logo">
+            <h2>TurfTrack</h2>
+          </div>
+          <nav class="navbar">
+            <input type="checkbox" id="menu-toggle" />
+            <label for="menu-toggle" class="menu-icon">&#9776;</label>
+            <div class="head-left">
+              <a class="head-home" href="{% url 'home' %}">Home</a>
+              <a class="head-about" href="{% url 'about' %}">About Us</a>
+              <a class="head-index" href="{% url 'index' %}">Index</a>
+              <a class="head-gallery" href="{% url 'review' %}">Review</a>
+              <a class="head-history" href="{% url 'booking_history' %}">Booking History</a>
+              <a class="head-offer" href="{% url 'job' %}">Jobs</a>
+              <a class="head-contact" href="{% url 'contact' %}">Contact Us</a>
+            </div>
+          </nav>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Payment Container -->
+  <div class="payment-container">
+
+    <!-- Booking Summary -->
+    <div class="summary">
+      <h2>Booking Summary</h2>
+      <p><strong>Turf Name:</strong> {{ turf }}</p>
+      <p><strong>Date:</strong> {{ date|date:"d M Y" }}</p>
+
+      <p><strong>Time Slot(s):</strong></p>
+      <ul>
+        {% for slot in slots %}
+          <li>{{ slot.start_time }} - {{ slot.end_time }}</li>
+        {% endfor %}
+      </ul>
+
+      <p><strong>Total Price:</strong> ₹{{ amount }}</p>
+    </div>
+
+    <!-- Payment Form -->
+    <!-- Payment Form -->
+<form class="payment-form" method="post" action="{% url 'confirm_payment' %}">
+  {% csrf_token %}
+  <input type="hidden" name="booking_id" value="{{ booking_id }}">
+
+  <h2>Payment Method</h2>
+  <label>
+    <input type="radio" name="payment_method" value="card" checked> Card
+  </label>
+  <label>
+    <input type="radio" name="payment_method" value="upi"> UPI
+  </label>
+
+  <!-- Card Fields -->
+  <div id="card-details">
+    <label for="name">Cardholder Name</label>
+    <input type="text" name="cardholder_name" id="name" placeholder="John Doe">
+
+    <label for="card-number">Card Number</label>
+    <input type="text" name="card_number" id="card-number" maxlength="16" placeholder="1234 5678 9012 3456">
+
+    <div class="card-details">
+      <div>
+        <label for="expiry">Expiry Date</label>
+        <input type="text" name="expiry" id="expiry" placeholder="MM/YY" maxlength="5">
+      </div>
+      <div>
+        <label for="cvv">CVV</label>
+        <input type="password" name="cvv" id="cvv" maxlength="3" placeholder="123">
+      </div>
+    </div>
+  </div>
+
+  <!-- UPI Fields -->
+  <div id="upi-details" style="display:none;">
+    <label for="upi-id">UPI ID</label>
+    <input type="text" name="upi_id" id="upi-id" placeholder="example@upi">
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="pay-btn">Pay ₹{{ amount }}</button>
+</form>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 TurfTrack. Secure Payment Powered by Razorpay</p>
+  </footer>
+
+  <!-- JS for Card/UPI toggle -->
+  <script>
+    const cardRadio = document.querySelector('input[value="card"]');
+    const upiRadio = document.querySelector('input[value="upi"]');
+    const cardDetailsDiv = document.getElementById('card-details');
+    const upiDetailsDiv = document.getElementById('upi-details');
+
+    cardRadio.addEventListener('change', togglePayment);
+    upiRadio.addEventListener('change', togglePayment);
+
+    function togglePayment() {
+      if(cardRadio.checked){
+        cardDetailsDiv.style.display = 'block';
+        upiDetailsDiv.style.display = 'none';
+      } else {
+        cardDetailsDiv.style.display = 'none';
+        upiDetailsDiv.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>

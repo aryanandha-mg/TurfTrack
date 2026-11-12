@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TurfTrack - Book Your Turf</title>
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+  <!-- ======= NAVBAR ======= -->
+  <header class="header">
+  <div class="head-section">
+    <!-- Logo -->
+    <div class="head-logo">
+      <h2>TurfTrack</h2>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+      <input type="checkbox" id="menu-toggle">
+      <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+      <!-- Links -->
+      <div class="head-left">
+        <a class="head-home" href="{% url 'home' %}">Home</a>
+        <a class="head-about" href="{% url 'about' %}">About Us</a>
+        <a class="head-gallery" href="{% url 'review' %}">Review</a>
+        <a class="head-history" href="{% url 'booking_history' %}">Booking History</a>
+        <a class="head-offer" href="{% url 'job' %}">Jobs</a>
+        <a class="head-contact" href="{% url 'contact' %}">Contact Us</a>
+        <!-- Logout button -->
+        <a class="logout-btn" href="{% url 'logout' %}">Logout</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+
+  <!-- ======= HERO SECTION ======= -->
+  <section class="hero">
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <h1>Find Your Perfect Turf</h1>
+        <p>Book your sports turf quickly and easily — anytime, anywhere.</p>
+        <a href="#search-section" class="cta-btn">Get Started</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= SEARCH BAR ======= -->
+  <section class="search-section" id="search-section">
+  <div class="search-bar">
+   <form method="GET" action="{% url 'search_turf' %}">
+  <input type="text" name="query" placeholder="Enter location or turf name">
+  <button type="submit">Search</button>
+</form>
+  </div>
+</section>
+
+  <!-- ======= FEATURES ======= -->
+  <section class="features">
+  <div class="feature">
+     <i class="fas fa-calendar-check"></i>
+    <h3>Easy Booking</h3>
+    <p>Book your slot in just a few clicks.</p>
+  </div>
+  <div class="feature">
+    <i class="fas fa-lock"></i>
+    <h3>Secure Payment</h3>
+    <p>Pay online securely and easily.</p>
+  </div>
+  <div class="feature">
+    <i class="fas fa-clock"></i>
+    <h3>Real-Time Availability</h3>
+    <p>See live updates of available turfs.</p>
+  </div>
+</section>
+
+
+  <!-- ======= TURF LISTINGS ======= -->
+  <section class="turfs">
+  <h2 class="section-title">Available Turfs</h2>
+  <div class="turf-grid">
+    {% for turf in turfs %}
+      <div class="turf-card">
+        <img src="{{ turf.image.url }}" alt="{{ turf.name }}" class="img-fluid">
+        <div class="info">
+          <h3>{{ turf.name }}</h3>
+          <p>Location: {{ turf.location }}</p>
+          <p>Price: ₹{{ turf.price_per_hour }}/hr</p>
+          <a href="{% url 'book_now' turf.id %}" class="book-btn">Book Now</a>
+        </div>
+      </div>
+    {% empty %}
+      <p>No turfs available right now.</p>
+    {% endfor %}
+  </div>
+</section>
+
+  <!-- ======= FOOTER ======= -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 TurfTrack | All Rights Reserved</p>
+      <p>Follow us:
+        <a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">Twitter</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/home.js' %}"></script>
+</body>
+</html>

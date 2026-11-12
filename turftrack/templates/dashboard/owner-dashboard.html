@@ -1,0 +1,219 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TurfTrack | Owner Dashboard</title>
+  <link rel="stylesheet" href="{% static 'css/owner-dashboard.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <h2>TurfTrack</h2>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#" class="active">Overview</a></li>
+        <li><a href="{% url 'add_turf' %}">Add Turf</a></li>
+        <li><a href="{% url 'post_job' %}">Post Job</a></li>
+        <li><a href="{% url 'owner_reviews' %}">User Reviews</a></li>
+        <li><a href="{% url 'owner_booking_history' owner.id %}">Booking History</a></li>
+        <li><a href="{% url 'manage_turf' %}">Manage Turf</a></li>
+      </ul>
+    </nav>
+
+    <!-- Add New Button -->
+    <!--<button class="add-btn"><i class="ri-add-line"></i> Add New</button>-->
+
+    <!-- Logout Button -->
+    <div class="logout-section">
+      <a href="{% url 'logout_owner' %}" class="logout-btn">
+        Logout
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header>
+      <h1>Owner Dashboard</h1>
+      <p>Manage your turfs, bookings, jobs, and refunds efficiently</p>
+    </header>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-target="tasks">Tasks</button>
+      <button class="tab-btn" data-target="bookings">Booking History</button>
+      <button class="tab-btn" data-target="refunds">Refund Requests</button>
+      <button class="tab-btn" data-target="applicants">View Applicants</button>
+    </div>
+
+    <!-- Tasks Section -->
+    <section id="tasks" class="tab-content active">
+      <h2>Management</h2>
+      <div class="task-card">
+        <div>
+          <h3>Add Turf</h3>
+          <p>Create and publish new turf details</p>
+        </div>
+        <a href="{% url 'add_turf' %}" class="action-btn">Go</a>
+      </div>
+
+      <div class="task-card">
+        <div>
+          <h3>Manage Turf</h3>
+          <p>Edit or update turf information</p>
+        </div>
+        <a href="{% url 'manage_turf' %}" class="action-btn">Go</a>
+      </div>
+
+      <h2>Jobs</h2>
+      <div class="task-card">
+        <div>
+          <h3>Post Job</h3>
+          <p>Post new openings for turf staff</p>
+        </div>
+        <a href="{% url 'post_job' %}" class="action-btn">Go</a>
+      </div>
+    </section>
+
+    <!-- Booking History Section -->
+    <section id="bookings" class="tab-content">
+      <h2>Booking History</h2>
+      <p class="fw-bold">Total Bookings: {{ bookings.count }}</p>
+      <table class="booking-table">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Turf</th>
+            <th>Date</th>
+            <th>Time Slots</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Payment Status</th>
+            <th>Booked At</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in bookings %}
+            <tr>
+              <td>{{ booking.user.username }}</td>
+              <td>{{ booking.turf.name }}</td>
+              <td>{{ booking.booking_date }}</td>
+              <td>
+                {% for slot in booking.slots.all %}
+                  {{ slot.start_time }} - {{ slot.end_time }}<br>
+                {% endfor %}
+              </td>
+              <td>₹{{ booking.total_amount }}</td>
+              <td>{{ booking.status|title }}</td>
+              <td>{{ booking.payment_status }}</td>
+              <td>{{ booking.booked_at|date:"M d, Y H:i" }}</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="8" class="text-center">No bookings found.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Refund Requests Section -->
+   <section id="refunds" class="tab-content">
+  <h2>Refund Requests</h2>
+  <table class="booking-table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Turf</th>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for booking in refund_requests %}
+        <tr>
+          <td>{{ booking.user.username }}</td>
+          <td>{{ booking.turf.name }}</td>
+          <td>{{ booking.booking_date|date:"M d, Y" }}</td>
+          <td>₹{{ booking.total_amount }}</td>
+          <td>
+            {% if booking.payment_status == 'Refund Requested' %}
+              <a href="{% url 'approve_refund' booking.id %}" class="btn btn-success btn-sm">
+                Approve
+              </a>
+            {% elif booking.payment_status == 'Refund Approved' %}
+              <span class="approved"><i class="fas fa-check-circle"></i> Refund Approved</span>
+            {% endif %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5" class="text-center">No refund requests</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+
+    <!-- Applicants Section -->
+    <section id="applicants" class="tab-content">
+  <h2>Job Applicants</h2>
+  <table class="booking-table">
+    <thead>
+      <tr>
+        <th>Job Title</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Resume</th>
+        <th>Applied At</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for app in applications %}
+        <tr>
+          <td>{{ app.job.title }}</td>
+          <td>
+            {% if app.applicant %}
+              {{ app.applicant.username }}
+            {% else %}
+              {{ app.name }}
+            {% endif %}
+          </td>
+          <td>
+            {% if app.applicant %}
+              {{ app.applicant.email }}
+            {% else %}
+              {{ app.email }}
+            {% endif %}
+          </td>
+          <td>
+            {% if app.resume %}
+              <a href="{{ app.resume.url }}" target="_blank">View Resume</a>
+            {% else %}
+              No Resume
+            {% endif %}
+          </td>
+          <td>{{ app.applied_at|date:"M d, Y H:i" }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5" class="text-center">No applicants yet.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script src="{% static 'js/owner-dashboard.js' %}"></script>
+</body>
+</html>

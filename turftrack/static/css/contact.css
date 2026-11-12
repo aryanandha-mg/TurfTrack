@@ -1,0 +1,224 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f7fdfa;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0px;
+    color: white;
+    position: relative;
+}
+
+
+.menu-icon {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Hide the checkbox */
+#menu-toggle {
+    display: none;
+}
+
+.head-section {
+    display: flex;
+    justify-content: space-between;
+    height: 43px;
+    background-color: rgb(173, 188, 169);
+    border-radius: 50px;
+    margin: 20px;
+    padding-left: 16px;
+    padding-bottom: 16px;
+    padding-right: 13px;
+    padding-top: 16px;
+}
+
+.head-left a {
+    font-size: 16px;
+}
+
+.head-logo h2 {
+font-weight: 700;
+    text-decoration: none;
+    color: darkgreen;
+    font-family: 'Poppins', sans-serif;
+}
+.head-left {
+    display: flex;
+    gap: 41px;
+    align-items: center;
+}
+
+.head-home  {
+    font-weight: 700;
+    text-decoration: none;
+    color: darkgreen;
+    font-family: 'Poppins', sans-serif;
+}
+
+.head-about  {
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    color: black;
+}
+
+.head-product  {
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    color: black;
+}
+
+.head-gallery 
+.head-history {
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    color: black;
+
+}
+
+.head-offer  {
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    color: black;
+
+}
+
+.head-contact  {
+    font-weight: 500;
+    border-radius: 117px;
+    margin-top: 0px;
+    padding: 15px;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    color: white;
+    background-color: #1c7c1c;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.contact-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    padding: 40px;
+    flex-wrap: wrap;
+}
+
+.contact-form {
+    flex: 1;
+    min-width: 300px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.contact-form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.contact-form button {
+    margin-top: 20px;
+    background: #0a6847;
+    color: #fff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.contact-form button:hover {
+    background: #014d36;
+}
+
+.contact-info {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.contact-info img {
+    width: 80%;
+    max-width: 600px;
+    margin-bottom: 60px;
+}
+
+.contact-info .info p {
+    margin: 5px 0;
+    color: #333;
+}
+
+
+/* Remove underline and default colors for all links */
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Unvisited link */
+a:link {
+  color: black;
+}
+
+/* Visited link */
+a:visited {
+  color: black;
+}
+
+/* On hover */
+a:hover {
+  color: green; /* or your preferred hover color */
+  text-decoration: none;
+}
+
+/* Active link (when clicked) */
+a:active {
+  color: darkgreen;
+}
+
+.footer {
+    background: #28a745;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.footer .social-links a img {
+    width: 25px;
+    margin: 0 10px;
+}

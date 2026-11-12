@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TurfTrack | Careers</title>
+  <link rel="stylesheet" href="{% static 'css/job.css' %}">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header">
+      <nav>
+        <div class="head-section">
+          <div class="head-logo">
+            <h2>TurfTrack</h2>
+          </div>
+          <nav class="navbar">
+            <input type="checkbox" id="menu-toggle" />
+            <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+            <div class="head-left">
+              <a class="head-home" href="{% url 'home' %}">Home</a>
+              <a class="head-about" href="{% url 'about' %}">About Us</a>
+              <a class="head-index" href="{% url 'index' %}">Index</a>
+              <a class="head-gallery" href="{% url 'review' %}">Review</a>
+              <a class="head-history" href="{% url 'booking_history' %}">Booking History</a>
+              <a class="head-offer" href="{% url 'job' %}">Jobs</a>
+              <a class="head-contact" href="{% url 'contact' %}">Contact Us</a>
+            </div>
+          </nav>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <h1>TurfTrack Careers</h1>
+
+  <!-- Job Listings Section -->
+  <section class="job-listings">
+    {% if jobs %}
+      {% for job in jobs %}
+        <div class="job-card">
+          <h2>{{ job.title }}</h2>
+          <p><strong>Location:</strong> {{ job.location|default:"Not specified" }}</p>
+          <p>{{ job.description }}</p>
+          <ul>
+            <li><strong>Type:</strong> {{ job.job_type }}</li>
+            <li><strong>Salary:</strong> ₹{{ job.salary }}</li>
+          </ul>
+          <button class="apply-btn" onclick="openForm('{{ job.title }}', '{{ job.id }}')">Apply</button>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="text-align:center; color:gray;">No jobs available at the moment.</p>
+    {% endif %}
+  </section>
+
+  <!-- Apply Form (Popup) -->
+  <div id="applyForm" class="form-popup">
+    <form class="form-container" method="POST" enctype="multipart/form-data" action="{% url 'apply_job' %}">
+      {% csrf_token %}
+      <h2 id="jobTitle">Apply Now</h2>
+
+      <!-- Hidden field to know which job the user applied for -->
+      <input type="hidden" id="job_id" name="job_id">
+
+      <label for="name"><b>Name</b></label>
+      <input type="text" placeholder="Your Name" name="name" required>
+
+      <label for="email"><b>Email</b></label>
+      <input type="email" placeholder="Your Email" name="email" required>
+
+      <label for="resume"><b>Upload Resume</b></label>
+      <input type="file" name="resume" required>
+
+      <button type="submit" class="btn">Submit</button>
+      <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+    </form>
+  </div>
+ {% if messages %}
+  <div class="alert">
+    {% for message in messages %}
+      <p style="color: green;">{{ message }}</p>
+    {% endfor %}
+  </div>
+  <script>
+    setTimeout(function() {
+      const msg = document.getElementById("flash-message");
+      if (msg) {
+        msg.style.display = "none";
+      }
+    }, 2000); // 2000ms = 2 seconds
+  </script>
+{% endif %}
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Close popup automatically if there's a success message
+      const successAlert = document.querySelector('.alert-success');
+      if (successAlert) {
+        document.getElementById("applyForm").style.display = "none";
+      }
+
+      // Disable submit button after click to prevent double submission
+      const form = document.querySelector('form');
+      if (form) {
+        form.addEventListener('submit', function() {
+          const button = form.querySelector('button[type="submit"]');
+          if (button) {
+            button.disabled = true;
+            button.innerText = "Processing...";
+          }
+        });
+      }
+    });
+
+    function openForm(jobTitle, jobId) {
+      console.log("Job ID passed:", jobId); // Debug
+      document.getElementById("applyForm").style.display = "flex";
+      document.getElementById("jobTitle").innerText = "Apply for " + jobTitle;
+      document.getElementById("job_id").value = jobId;
+    }
+
+    function closeForm() {
+      document.getElementById("applyForm").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>

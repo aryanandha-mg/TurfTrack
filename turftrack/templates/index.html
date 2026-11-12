@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TurfTrack | Home</title>
+  <link rel="stylesheet" href="{% static 'css/index-style.css' %}">
+
+  <style>
+    /* Full-page layout */
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      background-image: url('https://plus.unsplash.com/premium_photo-1665673313714-bf4d692020e6?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      background-size: cover;
+      background-position: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Center content */
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #d4dad7ff;
+    }
+
+    /* App name at top */
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    main h2 {
+      font-size: 2rem;
+      color: #e4eae7;
+      margin-top: 10px;
+    }
+
+    main p {
+      color: #e4eae7;
+      font-size: 1.1rem;
+      margin-top: 10px;
+      margin-bottom: 30px; /* ✅ space between paragraph and buttons */
+      line-height: 1.5;
+    }
+
+    .button-wrap {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .button-wrap button {
+      background: #1c7c1c;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 1rem;
+    }
+
+    .button-wrap button:hover {
+      background: #155a15;
+    }
+
+    .button-wrap a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    footer {
+      background: #1c7c1c;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: auto;
+    }
+
+    footer a {
+      color: #f4f9f4;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-wrapper">
+    <!-- Header Section -->
+    <header>
+      <h1>TurfTrack</h1>
+    </header>
+
+    <!-- Middle Section -->
+    <main>
+      <h2>Book your game in seconds</h2>
+      <p>Search turf by location, view live slot availability, pay securely, and play instantly with TurfTrack.</p>
+
+      <!-- Buttons Section -->
+      <div class="button-wrap">
+        <button><a href="{% url 'login_user' %}">Login as User</a></button>
+        <button><a href="{% url 'login_owner' %}">Login as Turf Owner</a></button>
+        <!-- Uncomment if needed -->
+        <!-- <button><a href="{% url 'login_admin' %}">Admin Login</a></button> -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 TurfTrack | All Rights Reserved</p>
+      <p>
+        Follow us:
+        <a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">Twitter</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking History | TurfTrack</title>
+  <link rel="stylesheet" href="{% static 'css/history.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Poppins', sans-serif; background: #f4f6f8; margin:0; padding:0; color:#333; }
+    header { background: #2e8b57; color:#fff; text-align:center; padding:20px 10px; }
+    header h2 { margin:0; font-size:24px; }
+    .history-section { max-width:1100px; margin:30px auto; background:#fff; padding:25px; border-radius:12px; box-shadow:0 0 15px rgba(0,0,0,0.1); }
+    table.history-table { width:100%; border-collapse:collapse; margin-top:10px; }
+    table.history-table th, table.history-table td { padding:12px; text-align:center; border:1px solid #ddd; font-size:14px; }
+    table.history-table th { background:#2e8b57; color:#fff; font-weight:600; }
+    table.history-table tr:nth-child(even) { background:#f9f9f9; }
+    table.history-table tr:hover { background:#f1f8f4; }
+    .refund-btn { background:#dc3545; color:#fff; padding:6px 14px; font-size:14px; border:none; border-radius:6px; cursor:pointer; transition: background 0.3s ease; }
+    .refund-btn:hover:enabled { background:#b02a37; }
+    .refund-btn:disabled { background:gray; cursor:not-allowed; opacity:0.7; }
+    .requested { color:orange; font-weight:600; }
+    .approved { color:green; font-weight:600; }
+    .no-action { color:gray; }
+    .back-btn { display:inline-block; margin-bottom:15px; padding:8px 16px; background:#2e8b57; color:white; border-radius:6px; font-size:14px; transition:0.3s; }
+    .back-btn:hover { background:#256945; }
+    .no-bookings { text-align:center; font-size:18px; color:#555; padding:30px 0; }
+    @media (max-width:768px) {
+      table.history-table thead { display:none; }
+      table.history-table, table.history-table tbody, table.history-table tr, table.history-table td { display:block; width:100%; }
+      table.history-table tr { margin-bottom:15px; border-bottom:2px solid #ddd; }
+      table.history-table td { text-align:right; padding-left:50%; position:relative; }
+      table.history-table td::before { content: attr(data-label); position:absolute; left:15px; width:45%; padding-left:10px; font-weight:600; text-align:left; color:#2e8b57; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h2>Your Booking History</h2>
+</header>
+
+<section class="history-section">
+  <a href="{% url 'home' %}" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+  {% if bookings %}
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>Turf</th>
+          <th>Booking Date</th>
+          <th>Slots</th>
+          <th>Total Amount</th>
+          <th>Payment Status</th>
+          <th>Refund</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for booking in bookings %}
+        <tr>
+          <td data-label="Turf">{{ booking.turf.name }}</td>
+          <td data-label="Booking Date">{{ booking.booking_date|date:"M. d, Y" }}</td>
+          <td data-label="Slots">
+            {% for slot in booking.slots.all %}
+              {{ slot.start_time }} - {{ slot.end_time }}<br>
+            {% endfor %}
+          </td>
+          <td data-label="Total Amount">₹{{ booking.total_amount }}</td>
+         <td data-label="Payment Status">
+    {% if booking.payment_status == 'Paid' %}
+        <span style="color:blue;font-weight:600;">Paid</span>
+    {% elif booking.payment_status == 'Refund Requested' %}
+        <span class="requested"> Refund Requested</span>
+    {% elif booking.payment_status == 'Refund Approved' %}
+        <span class="approved"> Refund Approved</span>
+    {% else %}
+        <span class="no-action">Pending</span>
+    {% endif %}
+</td>
+       <td data-label="Refund">
+    {% if booking.payment_status == 'Refund Approved' %}
+        <span class="approved"><i class="fas fa-check-circle"></i> Refund Approved</span>
+
+    {% elif booking.payment_status == 'Refund Requested' %}
+        <span class="requested"><i class="fas fa-hourglass-half"></i> Refund Requested</span>
+
+    {% elif booking.can_refund %}
+        <form id="refund-form-{{ booking.id }}" method="POST" action="{% url 'request_refund' booking.id %}">
+            {% csrf_token %}
+            <button type="button" class="refund-btn" onclick="confirmRefund({{ booking.id }})">
+                <i class="fas fa-undo"></i> Request Refund
+            </button>
+        </form>
+
+    {% else %}
+        <button class="refund-btn" disabled><i class="fas fa-ban"></i> Refund Not Allowed</button>
+    {% endif %}
+</td>
+
+
+
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="no-bookings"><i class="fas fa-info-circle"></i> No bookings found.</p>
+  {% endif %}
+</section>
+
+<script>
+  function confirmRefund(bookingId) {
+    if (confirm("Do you want to request a refund for this booking?")) {
+      document.getElementById(`refund-form-${bookingId}`).submit();
+    }
+  }
+</script>
+
+</body>
+</html>

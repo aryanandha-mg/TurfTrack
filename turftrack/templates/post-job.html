@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Job | TurfTrack</title>
+  <!-- Correct CSS linking -->
+  <link rel="stylesheet" href="{% static 'css/post-job.css' %}">
+</head>
+<body style="background-image: url('https://plus.unsplash.com/premium_photo-1665673313714-bf4d692020e6?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+  <div class="form-container">
+    <h1>Post a New Job</h1>
+
+    <!-- Django Messages -->
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- Job Post Form -->
+    <form id="postJobForm" method="POST" action="{% url 'post_job' %}">
+      {% csrf_token %}
+      
+      <!-- Job Title -->
+      <div class="form-group">
+        <label for="jobTitle">Job Title</label>
+        <input type="text" id="jobTitle" name="title" placeholder="Enter job title" required>
+      </div>
+
+      <!-- Job Description -->
+      <div class="form-group">
+        <label for="jobDescription">Job Description</label>
+        <textarea id="jobDescription" name="description" placeholder="Enter job description" rows="5" required></textarea>
+      </div>
+
+      <!-- Job Type -->
+      <div class="form-group">
+        <label for="jobType">Job Type</label>
+        <select id="jobType" name="job_type" required>
+          <option value="">Select job type</option>
+          <option value="full-time">Full-time</option>
+          <option value="part-time">Part-time</option>
+          <option value="internship">Internship</option>
+        </select>
+      </div>
+
+      <!-- Salary -->
+      <div class="form-group">
+        <label for="salary">Salary (₹)</label>
+        <input type="number" id="salary" name="salary" placeholder="Enter salary" required>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-actions">
+        <button type="submit" class="btn">Post Job</button>
+        <button type="button" class="btn cancel">
+          <a href="{% url 'owner_dashboard' %}" style="text-decoration:none; color:white;">Cancel</a>
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

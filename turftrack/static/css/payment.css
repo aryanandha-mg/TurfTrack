@@ -1,0 +1,232 @@
+/* Remove underline and default colors for all links */
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Unvisited link */
+a:link {
+  color: black;
+}
+
+/* Visited link */
+a:visited {
+  color: black;
+}
+
+/* On hover */
+a:hover {
+  color: green; /* or your preferred hover color */
+  text-decoration: none;
+}
+
+/* Active link (when clicked) */
+a:active {
+  color: darkgreen;
+}
+
+/* General Reset */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: #f4f7fc;
+  color: #333;
+}
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0px;
+    color: white;
+    position: relative;
+}
+
+
+.menu-icon {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Hide the checkbox */
+#menu-toggle {
+    display: none;
+}
+
+.head-section {
+    display: flex;
+    justify-content: space-between;
+    height: 43px;
+    background-color: white;
+    border-radius: 50px;
+    margin: 20px;
+    padding-left: 16px;
+    padding-bottom: 16px;
+    padding-right: 13px;
+    padding-top: 16px;
+}
+
+.head-left a {
+    font-size: 16px;
+}
+
+.head-logo h2 {
+font-weight: 700;
+    text-decoration: none;
+    color: darkgreen;
+    font-family: 'Poppins', sans-serif;
+}
+.head-left {
+    display: flex;
+    gap: 41px;
+    align-items: center;
+}
+
+.head-home  {
+    font-weight: 700;
+    text-decoration: none;
+    color: darkgreen;
+    font-family: 'Poppins', sans-serif;
+}
+
+.head-about  {
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    color: black;
+}
+
+.head-product  {
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    color: black;
+}
+
+.head-gallery 
+.head-history {
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    color: black;
+
+}
+
+.head-offer  {
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    color: black;
+
+}
+
+.head-contact  {
+    font-weight: 500;
+    border-radius: 117px;
+    margin-top: 0px;
+    padding: 15px;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    color: white;
+    background-color: #1c7c1c;;
+    font-family: 'Poppins', sans-serif;
+}
+/* Header */
+.header {
+  text-align: center;
+  background: #2e7d32;
+  color: white;
+  padding: 1rem;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.header h1 {
+  margin: 0;
+}
+.subtitle {
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* Container */
+.payment-container {
+  max-width: 600px;
+  background: white;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Booking Summary */
+.summary {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+.summary h2 {
+  margin-bottom: 0.5rem;
+  color:#2e7d32;
+}
+
+/* Payment Form */
+.payment-form h2 {
+  color: #2e7d32;
+  margin-bottom: 1rem;
+}
+.payment-form label {
+  font-weight: 500;
+  display: block;
+  margin: 0.5rem 0 0.3rem;
+}
+.payment-form input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 1rem;
+}
+.payment-form input:focus {
+  border-color: #2e7d32;
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.3);
+}
+
+/* Expiry and CVV Side by Side */
+.card-details {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.card-details div {
+  flex: 1;
+}
+
+/* Pay Button */
+.pay-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 10px;
+  width: 100%;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.pay-btn:hover {
+  background: #218838;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  color: #666;
+}

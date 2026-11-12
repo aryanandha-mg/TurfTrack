@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Turf | TurfTrack</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/owner-dashboard.css' %}">
+
+  <style>
+    body {
+      background: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container h1 {
+      text-align: center;
+      font-size: 28px;
+      color: #007bff;
+      margin-bottom: 25px;
+    }
+
+    label {
+      font-weight: 500;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    input[type="file"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+    }
+
+    .current-image {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .current-image img {
+      width: 150px;
+      height: auto;
+      border-radius: 8px;
+      border: 2px solid #dee2e6;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      border: none;
+    }
+
+    .btn-secondary:hover {
+      background-color: #5a6268;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h1>Edit Turf - {{ turf.name }}</h1>
+
+    <!-- Display Current Turf Image -->
+    {% if turf.image %}
+    <div class="current-image">
+      <p><strong>Current Image:</strong></p>
+      <img src="{{ turf.image.url }}" alt="{{ turf.name }}">
+    </div>
+    {% endif %}
+
+    <!-- Edit Turf Form -->
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <label for="name">Turf Name</label>
+      <input type="text" id="name" name="name" value="{{ turf.name }}" required>
+
+      <label for="location">Location</label>
+      <input type="text" id="location" name="location" value="{{ turf.location }}" required>
+
+      <label for="price_per_hour">Price Per Hour</label>
+      <input type="number" id="price_per_hour" name="price_per_hour" value="{{ turf.price_per_hour }}" required>
+
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="4" required>{{ turf.description }}</textarea>
+
+      <label for="image">Update Image</label>
+      <input type="file" id="image" name="image">
+
+      <div class="btn-container mt-3">
+        <button type="submit" class="btn btn-primary w-50">Save Changes</button>
+        <a href="{% url 'manage_turf' %}" class="btn btn-secondary w-50 text-center">Cancel</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

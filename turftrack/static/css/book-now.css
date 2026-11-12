@@ -1,0 +1,340 @@
+/* Remove underline and default colors for all links */
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Unvisited link */
+a:link {
+  color: black;
+}
+
+/* Visited link */
+a:visited {
+  color: black;
+}
+
+/* On hover */
+a:hover {
+  color: green; /* or your preferred hover color */
+  text-decoration: none;
+}
+
+/* Active link (when clicked) */
+a:active {
+  color: darkgreen;
+}
+
+/* ===========================
+   General Styles
+=========================== */
+body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  margin: 0;
+  background: #f8f9fa;
+  color: #333;
+  background: url("https://images.unsplash.com/photo-1695438383563-4f83ad855bbd?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* ===========================
+   Navbar
+=========================== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  color: white;
+  position: relative;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+.head-section {
+  display: flex;
+  justify-content: space-between;
+  height: 43px;
+  background-color: white;
+  border-radius: 50px;
+  margin: 20px;
+  padding: 16px 13px 16px 16px;
+}
+
+.head-logo h2 {
+  font-weight: 700;
+  text-decoration: none;
+  color: darkgreen;
+  font-family: 'Poppins', sans-serif;
+}
+
+.head-left {
+  display: flex;
+  gap: 41px;
+  align-items: center;
+}
+
+.head-left a 
+.head-history{
+  font-size: 16px;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  color: black;
+  font-weight: 500;
+}
+
+.head-home {
+  font-weight: 700;
+  color: darkgreen;
+}
+
+.head-contact {
+  background-color: darkgreen;
+  color: white;
+  padding: 15px;
+  border-radius: 117px;
+}
+
+/* ===========================
+   Header Section
+=========================== */
+.header {
+  text-align: center;
+  padding: 1rem;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* Court Info */
+.court-info {
+  text-align: center;
+  padding: 20px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.date-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.date-nav button {
+  background: darkgreen;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.date-nav button:hover {
+  background: darkgreen;
+}
+
+.dates-container {
+  overflow-x: auto;
+  width: 250px;
+  margin: 0 10px;
+}
+
+.dates {
+  display: flex;
+  gap: 10px;
+}
+
+.date-item {
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #fff;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.date-item.active {
+  background: #28a745;
+  color: white;
+  font-weight: bold;
+}
+
+/* Slots Section */
+.slots {
+  padding: 20px;
+}
+
+.slot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.slot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.slot:hover {
+  transform: scale(1.02);
+}
+
+/* Add button - Default Green */
+/* + button - green default */
+.slot .add-btn {
+  background: #28a745; /* Green */
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+/* Selected slot - red × button */
+.slot .add-btn.selected {
+  background: #dc3545; /* Red */
+  color: white;
+}
+
+/* Disabled booked slot */
+
+/* Booked slots */
+.slot .booked-btn {
+  background: #ccc;
+  color: #666;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: not-allowed;
+}
+
+
+/* Hover effect */
+.add-btn:hover {
+  transform: scale(1.05);
+}
+
+
+
+/* Total Amount */
+#total_amount {
+  
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: bold;
+  width: 100px;
+  background: #f8f9fa;
+}
+label[for="total_amount"], label {
+  color: white;
+  font-weight: bold;
+}
+
+/* Proceed Button */
+.proceed-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.proceed {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.proceed:hover {
+  background: #218838;
+}
+
+/* Footer */
+footer.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background: #f1f1f1;
+  border-top: 1px solid #ddd;
+}
+
+footer.footer p {
+  margin: 0;
+  font-size: 16px;
+}
+
+footer.footer button.proceed {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+/* ===========================
+   Responsive Design
+=========================== */
+@media (min-width: 768px) {
+  .court-info,
+  .slot-list,
+  .footer {
+    max-width: 600px;
+    margin: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.3rem;
+  }
+  .slot span {
+    font-size: 0.85rem;
+  }
+  .footer {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer .proceed {
+    width: 100%;
+  }
+}

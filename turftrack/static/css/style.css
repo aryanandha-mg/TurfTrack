@@ -1,0 +1,96 @@
+/* === Global Styles === */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Cards */
+.card {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease-in-out;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+}
+.btn:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* Footer */
+footer {
+  font-size: 0.9rem;
+}
+
+/* === Role Specific Colors === */
+
+/* User theme */
+.user-theme .btn-primary,
+.user-theme h3 {
+  color: #0d6efd;
+}
+
+/* Turf Owner theme */
+.owner-theme .btn-success,
+.owner-theme h3 {
+  color: #198754;
+}
+
+/* TurfOwner (Super Admin) theme */
+.admin-theme .btn-dark,
+.admin-theme h3 {
+  color: #212529;
+}
+
+/* === Dashboard Layout === */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #212529;
+  color: white;
+  padding: 20px;
+}
+.sidebar a {
+  display: block;
+  padding: 10px;
+  margin-bottom: 8px;
+  color: #ccc;
+  text-decoration: none;
+  border-radius: 5px;
+}
+.sidebar a:hover {
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  padding: 30px;
+  background-color: #f8f9fa;
+}

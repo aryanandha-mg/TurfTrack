@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking History</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        thead {
+            background-color: #2563eb;
+            color: #fff;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #e3f2fd;
+        }
+
+        th {
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        p {
+            text-align: center;
+            font-size: 16px;
+            color: #555;
+            margin-top: 20px;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            background-color: #093e78ff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn-back:hover {
+            background-color: #062c57;
+            transform: translateY(-2px);
+        }
+    
+    </style>
+</head>
+<body>
+  
+<div class="container">
+  <a href="{% url 'owner_dashboard' %}" class="btn-back">&larr; Back to Dashboard</a>
+
+    <h1>Booking History</h1>
+   
+    {% if bookings %}
+        <table>
+            <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Turf Name</th>
+                <th>Booking Date</th>
+                <th>Slot Times</th>
+                <th>Total Amount</th>
+                
+                <th>Payment Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.user.username }}</td>
+                    <td>{{ booking.turf.name }}</td>
+                    <td>{{ booking.booking_date|date:"M d, Y" }}</td>
+                    <td>
+                        {% for slot in booking.slots.all %}
+                            {{ slot.start_time|time:"g:i a" }} - {{ slot.end_time|time:"g:i a" }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>${{ booking.total_amount }}</td>
+                    
+                    <td>{{ booking.payment_status }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No bookings found for your turfs.</p>
+    {% endif %}
+</div>
+</body>
+</html>

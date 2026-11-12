@@ -1,0 +1,289 @@
+/* Remove underline and default colors for all links */
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Unvisited link */
+a:link {
+  color: black;
+}
+
+/* Visited link */
+a:visited {
+  color: black;
+}
+
+/* On hover */
+a:hover {
+  color: green; /* or your preferred hover color */
+  text-decoration: none;
+}
+
+/* Active link (when clicked) */
+a:active {
+  color: darkgreen;
+}
+
+/* ===========================
+   General Body Styling
+=========================== */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7fdfa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===========================
+   Navigation Bar Section
+=========================== */
+nav {
+    padding-top: 10px;
+}
+
+/* Header container */
+.head-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    background-color: white;
+    border-radius: 50px;
+    margin: 20px;
+    padding: 16px;
+    backdrop-filter: blur(18px);
+    box-shadow: 0 0 10px #00000029;
+}
+
+/* Logo */
+.head-logo h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2e7d32; 
+    margin: 0;
+}
+
+/* Navbar layout */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+/* Mobile hamburger icon */
+.menu-icon {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Hidden checkbox for toggle */
+#menu-toggle {
+    display: none;
+}
+
+/* ===========================
+   Header Links
+=========================== */
+.head-left {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+/* Default link styles */
+.head-left a
+.head-history {
+    font-weight: 500 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 16px !important;
+    text-decoration: none !important;
+    color: black;
+    transition: color 0.3s ease, background 0.3s ease;
+}
+
+/* Hover effect */
+.head-left a:hover {
+    color: #2e7d32 !important;
+}
+
+/* Highlight active page */
+.head-about {
+    font-weight: 700 !important;
+    color: #2e7d32  !important;
+}
+
+.head-offer  {
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    color: black;
+
+}
+
+
+/* Contact Us button */
+
+.head-contact {
+    font-weight: 500;
+    border-radius: 117px;
+    margin-top: 0px;
+    padding: 15px;
+    background-color: #1c7c1c;; /* dark background for contrast */
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: white; /* white text only for Contact Us */
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+.head-contact:hover {
+    background-color: #023a03ff !important;
+    color: white; 
+}
+
+/* ===========================
+   Hero Section
+=========================== */
+.hero {
+    background-image: url('https://plus.unsplash.com/premium_photo-1665673313714-bf4d692020e6?q=80&w=687&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.hero h1 {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+/* ===========================
+   Main Content Container
+=========================== */
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+h2 {
+    color: #2c7a2c;
+    margin-top: 20px;
+    font-size: 24px;
+}
+
+/* ===========================
+   Features Section
+=========================== */
+.features {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.feature {
+    background-color: #e3f4e1;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    flex: 1 1 300px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.feature h3 {
+    color: #2e7d32;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.feature p {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* ===========================
+   Call-to-Action Button
+=========================== */
+.cta {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.cta a {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #2c7a2c;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.cta a:hover {
+    background-color: #256a25;
+}
+
+/* ===========================
+   Footer Section
+=========================== */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color:#2e7d32;
+    color: white;
+    margin-top: 40px;
+    font-size: 14px;
+}
+
+/* ===========================
+   Mobile Responsive Design
+=========================== */
+@media (max-width: 768px) {
+    /* Show hamburger menu */
+    .menu-icon {
+        display: block;
+    }
+
+    /* Hide links by default */
+    .head-left {
+        display: none;
+        flex-direction: column;
+        gap: 15px;
+        background: white;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        padding: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+    }
+
+    /* Show menu when checkbox is checked */
+    #menu-toggle:checked + .menu-icon + .head-left {
+        display: flex;
+    }
+
+    /* Adjust hero text size */
+    .hero h1 {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    /* Reduce padding for small screens */
+    .head-contact {
+        padding: 8px 15px !important;
+    }
+}

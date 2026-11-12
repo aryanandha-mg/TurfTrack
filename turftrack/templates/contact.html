@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | TurfTrack</title>
+  <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+ 
+
+
+<!-- Header / Navbar -->
+ <header class="header">
+     <div class="header">
+        <nav>
+                <div class="head-section">
+                    <div class="head-logo">
+                        <h2>TurfTrack</h2>
+                    </div>
+                   <nav class="navbar">
+    <input type="checkbox" id="menu-toggle" />
+    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+    
+    
+   
+    
+  <div class="head-left">
+    <!-- If user is logged in -->
+    <a class="head-home" href="{% url 'home' %}">Home</a>
+    
+    <!-- Other links -->
+    <a class="head-about" href="{% url 'about' %}">About Us</a>
+    <a class="head-index" href="{% url 'index' %}">Index</a>
+    <a class="head-gallery" href="{% url 'review' %}">Review</a>
+    <a class="head-history" href="{% url 'booking_history' %}">Booking History</a>
+    <a class="head-offer" href="{% url 'job' %}">Jobs</a>
+    <a class="head-contact" href="{% url 'contact' %}">Contact Us</a>
+</div>
+
+
+</nav>
+                </div>
+            </nav>
+    </div>
+
+  </header>
+
+<!-- Page Header -->
+<center>
+  <h1> Contact TurfTrack</h1>
+  <p>Fill out the form below and our team will get back to you within 24 hours.</p>
+
+</center>
+ {% if messages %}
+  <div class="alert">
+    {% for message in messages %}
+      <p style="color: green;">{{ message }}</p>
+    {% endfor %}
+  </div>
+  <script>
+    setTimeout(function() {
+      const msg = document.getElementById("flash-message");
+      if (msg) {
+        msg.style.display = "none";
+      }
+    }, 2000); // 2000ms = 2 seconds
+  </script>
+{% endif %}
+<!-- Contact Form Section -->
+<div class="contact-container">
+  <div class="contact-form">
+    <form method="POST" action="#">
+  {% csrf_token %}
+  
+  <label for="fname">First Name</label>
+  <input type="text" id="fname" name="fname" placeholder="Enter your first name" required>
+
+  <label for="lname">Last Name</label>
+  <input type="text" id="lname" name="lname" placeholder="Enter your last name" required>
+
+  <label for="email">Email</label>
+  <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+  <label for="message">Message</label>
+  <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
+
+  <button type="submit">Send Message</button>
+</form>
+
+  </div>
+
+  <!-- Optional Image / Map -->
+  <div class="contact-info">
+    <img src="https://images.unsplash.com/photo-1610684082661-5d4763eecb39?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="TurfTrack Contact" />
+    <div class="info">
+      <p><strong>Phone:</strong> (406) 555-0120</p>
+      <p><strong>Email:</strong> support@turftrack.com</p>
+      <p><strong>Address:</strong> 123 Turf Street, Sports City, India</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="footer">
+  <p>© 2025 TurfTrack. All Rights Reserved.</p>
+  <div class="social-links">
+    <a href="#"><img src="{% static 'images/facebook.svg' %}" alt="Facebook"></a>
+    <a href="#"><img src="{% static 'images/twitter.svg' %}" alt="Twitter"></a>
+    <a href="#"><img src="{% static 'images/instagram.svg' %}" alt="Instagram"></a>
+  </div>
+</footer>
+
+</body>
+</html>

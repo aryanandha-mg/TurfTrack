@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | TurfTrack</title>
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+    <nav>
+        <div class="head-section">
+            <div class="head-logo">
+                <h2>TurfTrack</h2>
+            </div>
+            <div class="navbar">
+                <input type="checkbox" id="menu-toggle">
+                <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+                <div class="head-left">
+                    <a class="head-home" href="{% url 'home' %}">Home</a>
+                    <a class="head-about" href="{% url 'about' %}">About Us</a>
+                    <a class="head-index" href="{% url 'index' %}">Index</a>
+                    <a class="head-gallery" href="{% url 'review' %}">Review</a>
+                    <a class="head-history" href="{% url 'booking_history' %}">Booking History</a>
+                    <a class="head-offer" href="{% url 'job' %}">Jobs</a>
+                    <a class="head-contact" href="{% url 'contact' %}">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>About TurfTrack</h1>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Mission & Vision -->
+        <section>
+            <h2>Our Mission</h2>
+            <p>To make turf booking and management simple, fast, and accessible for everyone, connecting players with the best local turf facilities.</p>
+
+            <h2>Our Vision</h2>
+            <p>To become the most trusted platform for sports enthusiasts and turf owners, revolutionizing how people play and manage sports grounds in India.</p>
+        </section>
+
+        <!-- Features Section -->
+        <section>
+            <h2>Why Choose TurfTrack?</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>Easy Booking</h3>
+                    <p>Reserve turf slots in seconds using our simple and intuitive interface.</p>
+                </div>
+                <div class="feature">
+                    <h3>Secure Payments</h3>
+                    <p>Safe and fast payment options for hassle-free booking experience.</p>
+                </div>
+                <div class="feature">
+                    <h3>Verified Turfs</h3>
+                    <p>All turfs listed on our platform are verified for quality and safety.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <div class="cta">
+            <a href="{% url 'home' %}">Book a Turf Now</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 TurfTrack | All Rights Reserved
+    </footer>
+
+</body>
+</html>
